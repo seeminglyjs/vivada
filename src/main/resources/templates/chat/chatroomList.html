@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Chat Room List</title>
+</head>
+<body>
+<h1>Chat Room List</h1>
+<ul>
+  <li th:each="chatRoom : ${chatRooms}">
+    <span th:text="${chatRoom.roomId}"></span> - <span th:text="${chatRoom.maker}"></span>
+  </li>
+</ul>
+</body>
+</html>
