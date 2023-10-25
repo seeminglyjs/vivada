@@ -1,11 +1,22 @@
 package com.app.vivada.chat.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
+
+import java.util.UUID;
 
 @Builder
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChatRoom {
     private String roomId;
-    private String maker;
+    private String roomName;
+
+    public static ChatRoom create(String name) {
+        ChatRoom room = new ChatRoom();
+        room.roomId = UUID.randomUUID().toString();
+        room.roomName = name;
+        return room;
+    }
 }
