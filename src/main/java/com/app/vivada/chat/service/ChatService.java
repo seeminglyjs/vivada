@@ -8,7 +8,7 @@ public interface ChatService {
 
     List<ChatRoom> findAllRoom();
 
-    ChatRoom createRoom(String name);
+    ChatRoom makeRoom(String name);
 
     ChatRoom findById(String roomId);
 }

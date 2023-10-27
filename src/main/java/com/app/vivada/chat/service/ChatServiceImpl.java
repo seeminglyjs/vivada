@@ -11,34 +11,29 @@ import java.util.*;
 @Service
 @Slf4j
 public class ChatServiceImpl implements ChatService {
+    
+    //DB 사용시 제거 가능
     private Map<String, ChatRoom> chatRooms;
 
+    //DB 사용시 제거 가능
     @PostConstruct
-    //의존관게 주입완료되면 실행되는 코드
     private void init() {
         chatRooms = new LinkedHashMap<>();
     }
 
-    //채팅방 불러오기
     @Override
     public List<ChatRoom> findAllRoom() {
-        //채팅방 최근 생성 순으로 반환
-        List<ChatRoom> result = new ArrayList<>(chatRooms.values());
-        Collections.reverse(result);
-
-        return result;
+        return new ArrayList<>(chatRooms.values());
     }
 
-    //채팅방 하나 불러오기
     @Override
     public ChatRoom findById(String roomId) {
         return chatRooms.get(roomId);
     }
 
-    //채팅방 생성
     @Override
-    public ChatRoom createRoom(String name) {
-        ChatRoom chatRoom = ChatRoom.create(name);
+    public ChatRoom makeRoom(String name) {
+        ChatRoom chatRoom = ChatRoom.make(name);
         chatRooms.put(chatRoom.getRoomId(), chatRoom);
         return chatRoom;
     }

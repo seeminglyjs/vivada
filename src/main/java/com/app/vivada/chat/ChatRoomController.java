@@ -16,58 +16,50 @@ public class ChatRoomController {//https://velog.io/@rainbowweb/%EC%8A%A4%ED%94%
 
     private final ChatService chatService;
 
-    // 채팅 리스트 화면
     @GetMapping("/room")
-    public String rooms(Model model) {
+    public String getRoomList(Model model) {
+        /*
+         * TODO 접속 유저에 따라 방 정보를 구분할 필요 있음
+         *  파라미터로 전달 받은 정보 기준 ex) session | token | 인증객체
+         */
         return "/chat/room";
     }
-    // 모든 채팅방 목록 반환
+
     @GetMapping("/rooms")
     @ResponseBody
-    public List<ChatRoom> room() {
+    public List<ChatRoom> getRoomListResponseBody() {
+        /*
+         * TODO 접속 유저에 따라 방 정보를 구분할 필요 있음
+         *  파라미터로 전달 받은 정보 기준 ex) session | token | 인증객체
+         */
         return chatService.findAllRoom();
     }
-    // 채팅방 생성
+
     @PostMapping("/room")
     @ResponseBody
-    public ChatRoom createRoom(@RequestParam String name) {
-        return chatService.createRoom(name);
+    public ChatRoom makeRoom(@RequestParam String name) {
+        /*
+         * TODO 요청 유저 정보를 별개의 파라미터로 받아 처리해야함
+         */
+        return chatService.makeRoom(name);
     }
-    // 채팅방 입장 화면
+
     @GetMapping("/room/enter/{roomId}")
-    public String roomDetail(Model model, @PathVariable String roomId) {
+    public String enterRoom(Model model, @PathVariable String roomId) {
+        /*
+         * TODO 요청 유저 정보를 별개의 파라미터로 받아 처리해야함
+         *  방에 따른 유저 권한 체크
+         */
         model.addAttribute("roomId", roomId);
         return "/chat/roomdetail";
     }
-    // 특정 채팅방 조회
+
     @GetMapping("/room/{roomId}")
     @ResponseBody
     public ChatRoom roomInfo(@PathVariable String roomId) {
+        /*
+         * TODO 요청 유저 정보를 별개의 파라미터로 받아 처리해야함
+         */
         return chatService.findById(roomId);
     }
-
-//    @MessageMapping("/chat.sendMessage")
-//    @SendTo("/topic/public")
-//    public ChatMessage sendMessage(
-//            @Payload ChatMessage chatMessage
-//    ) {
-//        return chatMessage;
-//    }
-//
-//    @MessageMapping("/chat.addUser")
-//    @SendTo("/topic/public")
-//    public String addUser(
-//            @Payload ChatMessage chatMessage,
-//            SimpMessageHeaderAccessor headerAccessor
-//    ) {
-//        // Add username in web socket session
-//        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-//        headerAccessor.getSessionAttributes().put("roomId", chatMessage.getRoomId());
-//        ChatLocalData.usernameList.add(chatMessage.getSender());
-//
-//        return "/chat/chatroomList";
-//    }
-
-
-
 }
